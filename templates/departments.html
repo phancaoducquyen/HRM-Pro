@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Cây phân cấp phòng ban</h3>
+
+<p class="text-muted">
+    Dữ liệu được truy vấn từ Oracle bằng CTE đệ quy.
+</p>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Cây phòng ban</th>
+            <th>Mã phòng ban</th>
+            <th>Mã phòng ban cha</th>
+            <th>Cấp</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for pb in departments %}
+        <tr>
+            <td><pre class="m-0">{{ pb[0] }}</pre></td>
+            <td>{{ pb[1] }}</td>
+            <td>{{ pb[2] if pb[2] else "Không có" }}</td>
+            <td>{{ pb[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

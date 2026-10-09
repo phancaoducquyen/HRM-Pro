@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Danh sách đơn nghỉ phép</h3>
+
+<a href="/leaves/create" class="btn btn-primary mb-3">Tạo đơn nghỉ phép</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã đơn</th>
+            <th>Mã NV</th>
+            <th>Từ ngày</th>
+            <th>Đến ngày</th>
+            <th>Số ngày</th>
+            <th>Lý do</th>
+            <th>Trạng thái</th>
+            <th>Đồng bộ</th>
+            {% if current_role in ["hr", "manager"] %}
+                <th>Thao tác</th>
+            {% endif %}
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for don in leaves %}
+        <tr>
+            <td>{{ don.ma_don }}</td>
+            <td>{{ don.ma_nv }}</td>
+            <td>{{ don.tu_ngay }}</td>
+            <td>{{ don.den_ngay }}</td>
+            <td>{{ don.so_ngay }}</td>
+            <td>{{ don.ly_do }}</td>
+            <td>
+                {% if don.trang_thai == "CHO_DUYET" %}
+                    <span class="badge bg-warning text-dark">CHỜ DUYỆT</span>
+                {% elif don.trang_thai == "DA_DUYET" %}
+                    <span class="badge bg-success">ĐÃ DUYỆT</span>
+                {% else %}
+                    <span class="badge bg-danger">TỪ CHỐI</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if don.sync_status == "SUCCESS" %}
+                    <span class="badge bg-success">SUCCESS</span>
+                {% elif don.sync_status == "FAILED" %}
+                    <span class="badge bg-danger">FAILED</span>
+                {% elif don.sync_status == "PROCESSING" %}
+                    <span class="badge bg-info text-dark">PROCESSING</span>
+                {% else %}
+                    <span class="badge bg-secondary">{{ don.sync_status if don.sync_status else "PENDING" }}</span>
+                {% endif %}
+            </td>
+
+            {% if current_role in ["hr", "manager"] %}
+            <td>
+                {% if don.trang_thai == "CHO_DUYET" %}
+                    <a href="/leaves/approve/{{ don._id }}" class="btn btn-success btn-sm">Duyệt</a>
+                    <a href="/leaves/reject/{{ don._id }}" class="btn btn-danger btn-sm">Từ chối</a>
+                {% else %}
+                    Đã xử lý
+                {% endif %}
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

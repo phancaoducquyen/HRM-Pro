@@ -1,0 +1,9 @@
+-- Test procedure tru ngay phep
+BEGIN
+    SP_TRU_NGAY_PHEP('NV001', 'NP_TEST', 1);
+END;
+/
+
+SELECT * FROM NHANVIEN WHERE MANV = 'NV001';
+
+SELECT * FROM LICHSU_PHEP;

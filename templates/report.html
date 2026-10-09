@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Thống kê đơn nghỉ phép bằng MongoDB Aggregation</h3>
+
+<p class="text-muted">
+    Báo cáo sử dụng MongoDB Aggregation để phân tích đơn nghỉ phép theo trạng thái, theo nhân viên và theo tổng số ngày nghỉ.
+</p>
+
+<div class="card p-3 mb-4 shadow-sm">
+    <h5>1. Thống kê số lượng đơn theo trạng thái</h5>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Trạng thái</th>
+                <th>Số lượng đơn</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in status_reports %}
+            <tr>
+                <td>{{ item._id }}</td>
+                <td>{{ item.so_luong }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card p-3 mb-4 shadow-sm">
+    <h5>2. Thống kê số đơn và tổng số ngày nghỉ theo nhân viên</h5>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Mã nhân viên</th>
+                <th>Tổng số đơn</th>
+                <th>Tổng số ngày nghỉ</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in employee_reports %}
+            <tr>
+                <td>{{ item._id }}</td>
+                <td>{{ item.tong_so_don }}</td>
+                <td>{{ item.tong_so_ngay_nghi }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card p-3 mb-4 shadow-sm">
+    <h5>3. Thống kê tổng số ngày nghỉ theo trạng thái</h5>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Trạng thái</th>
+                <th>Số lượng đơn</th>
+                <th>Tổng số ngày nghỉ</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in day_status_reports %}
+            <tr>
+                <td>{{ item._id }}</td>
+                <td>{{ item.so_luong_don }}</td>
+                <td>{{ item.tong_so_ngay }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

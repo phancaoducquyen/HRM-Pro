@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card p-4 shadow-sm">
+            <h3 class="mb-3">Đăng nhập HRM Pro</h3>
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label>Tài khoản</label>
+                    <input type="text" name="username" class="form-control" placeholder="VD: nv001 hoặc hr001" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Mật khẩu</label>
+                    <input type="password" name="password" class="form-control" placeholder="123" required>
+                </div>
+
+                <button class="btn btn-primary w-100">Đăng nhập</button>
+            </form>
+
+            <hr>
+
+            <h6>Tài khoản demo</h6>
+            <ul class="mb-0">
+                <li><b>nv001 / 123</b>: Nhân viên, tạo và xem đơn của mình.</li>
+                <li><b>hr001 / 123</b>: Nhân sự, duyệt đơn, xem nhân viên, thống kê.</li>
+                <li><b>ql001 / 123</b>: Quản lý, duyệt đơn và xem báo cáo.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

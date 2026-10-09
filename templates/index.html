@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Hệ thống Quản lý Nhân sự Nội bộ HRM Pro</h2>
+
+<p class="text-muted">
+    Ứng dụng demo kiến trúc Polyglot Persistence sử dụng Oracle và MongoDB.
+</p>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+            <h5>Oracle Database</h5>
+            <p>Lưu nhân viên, phòng ban, chấm công, lương và ngày phép còn lại.</p>
+            <h3>{{ employee_count }}</h3>
+            <span class="text-muted">Nhân viên</span>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+            <h5>MongoDB</h5>
+            <p>Lưu đơn nghỉ phép, đơn làm thêm giờ và đánh giá hiệu suất.</p>
+            <h3>{{ leave_count }}</h3>
+            <span class="text-muted">Đơn nghỉ phép</span>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Đơn chờ duyệt</h5>
+            <h3>{{ pending_count }}</h3>
+            <span class="text-muted">Trạng thái CHO_DUYET</span>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Đơn đã duyệt</h5>
+            <h3>{{ approved_count }}</h3>
+            <span class="text-muted">Trạng thái DA_DUYET</span>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Đơn từ chối</h5>
+            <h3>{{ rejected_count }}</h3>
+            <span class="text-muted">Trạng thái TU_CHOI</span>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4 shadow-sm mt-4">
+    <h5>Dashboard biểu đồ trạng thái đơn nghỉ phép</h5>
+    <p class="text-muted">
+        Biểu đồ giúp bộ phận nhân sự theo dõi nhanh số lượng đơn theo từng trạng thái.
+    </p>
+
+    {% for item in chart_data %}
+        {% set width = (item.value / max_count * 100) if max_count else 0 %}
+        <div class="mb-3">
+            <div class="d-flex justify-content-between">
+                <span>{{ item.label }}</span>
+                <b>{{ item.value }}</b>
+            </div>
+            <div class="chart-bar-bg">
+                <div class="chart-bar" style="width: {{ width }}%"></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="mt-4">
+    <h5>Luồng xử lý chính</h5>
+    <ol>
+        <li>Nhân viên đăng nhập và tạo đơn nghỉ phép.</li>
+        <li>Đơn được lưu vào MongoDB với trạng thái CHO_DUYET và sync_status là PENDING.</li>
+        <li>Quản lý hoặc nhân sự duyệt đơn.</li>
+        <li>Flask gọi Stored Procedure trong Oracle để trừ ngày phép.</li>
+        <li>Nếu Oracle xử lý thành công, MongoDB cập nhật trạng thái đơn thành DA_DUYET và sync_status thành SUCCESS.</li>
+    </ol>
+</div>
+{% endblock %}

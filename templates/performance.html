@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Đánh giá hiệu suất</h3>
+
+<p class="text-muted">
+    Dữ liệu đánh giá hiệu suất dạng văn bản tự luận được lưu trong MongoDB.
+</p>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã đánh giá</th>
+            <th>Mã NV</th>
+            <th>Quý</th>
+            <th>Năm</th>
+            <th>Điểm</th>
+            <th>Nhận xét quản lý</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in reviews %}
+        <tr>
+            <td>{{ item.ma_danh_gia }}</td>
+            <td>{{ item.ma_nv }}</td>
+            <td>{{ item.quy }}</td>
+            <td>{{ item.nam }}</td>
+            <td>{{ item.diem }}</td>
+            <td>{{ item.nhan_xet_quan_ly }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

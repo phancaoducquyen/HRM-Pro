@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Thêm nhân viên</h3>
+
+<form method="POST" class="card p-4 shadow-sm">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Mã nhân viên</label>
+            <input type="text" name="manv" class="form-control" placeholder="VD: NV006" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Họ tên</label>
+            <input type="text" name="hoten" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control">
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Mã phòng ban</label>
+            <input type="text" name="mapb" class="form-control" placeholder="VD: PB004" required>
+            <small class="text-muted">Chỉ nhập mã phòng ban đã có, ví dụ: PB001, PB002, PB003, PB004, PB005, PB006.</small>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Chức vụ</label>
+            <input type="text" name="chucvu" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Lương</label>
+            <input type="number" name="luong" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Ngày phép còn lại</label>
+            <input type="number" name="ngayphep" class="form-control" value="12" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Mã quản lý</label>
+            <input type="text" name="manv_quanly" class="form-control" placeholder="Có thể bỏ trống">
+        </div>
+    </div>
+
+    <button class="btn btn-primary">Lưu nhân viên</button>
+</form>
+{% endblock %}

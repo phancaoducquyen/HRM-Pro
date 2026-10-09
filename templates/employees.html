@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Danh sách nhân viên</h3>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã NV</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>Phòng ban</th>
+            <th>Chức vụ</th>
+            <th>Lương</th>
+            <th>Ngày phép còn lại</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for nv in employees %}
+        <tr>
+            <td>{{ nv[0] }}</td>
+            <td>{{ nv[1] }}</td>
+            <td>{{ nv[2] }}</td>
+            <td>{{ nv[3] }}</td>
+            <td>{{ nv[4] }}</td>
+            <td>{{ "{:,.0f}".format(nv[5]) }}</td>
+            <td class="fw-bold">{{ nv[6] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

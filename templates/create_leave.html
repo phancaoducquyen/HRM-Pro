@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Tạo đơn nghỉ phép</h3>
+
+<form method="POST" class="card p-4 shadow-sm">
+    <div class="mb-3">
+        <label>Mã đơn</label>
+        <input type="text" name="ma_don" class="form-control" placeholder="VD: NP004" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Mã nhân viên</label>
+
+        {% if current_role == "employee" %}
+            <input type="text" name="ma_nv" class="form-control" value="{{ current_ma_nv }}" readonly>
+            <small class="text-muted">Nhân viên chỉ được tạo đơn cho chính mình.</small>
+        {% else %}
+            <input type="text" name="ma_nv" class="form-control" placeholder="VD: NV001" required>
+            <small class="text-muted">Chỉ nhập mã nhân viên đã tồn tại trong Oracle, ví dụ: NV001, NV002, NV003.</small>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label>Từ ngày</label>
+        <input type="date" name="tu_ngay" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Đến ngày</label>
+        <input type="date" name="den_ngay" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Số ngày nghỉ</label>
+        <input type="number" name="so_ngay" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Lý do</label>
+        <textarea name="ly_do" class="form-control" required></textarea>
+    </div>
+
+    <button class="btn btn-primary">Gửi đơn</button>
+</form>
+{% endblock %}
